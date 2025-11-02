@@ -1,0 +1,4 @@
+mutagen
+requests
+beautifulsoup4
+pydub
