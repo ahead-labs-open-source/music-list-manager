@@ -28,11 +28,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2.1.1
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        continue-on-error: true
 
   publish:
     name: Publish to PyPI
@@ -55,7 +54,6 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.11
-        continue-on-error: true
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
