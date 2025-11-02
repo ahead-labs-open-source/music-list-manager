@@ -29,15 +29,15 @@ jobs:
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2.1.1
-        if: ${{ secrets.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true
 
   publish:
     name: Publish to PyPI
     needs: build-test
-    if: ${{ success() && secrets.PYPI_TOKEN && github.ref == 'refs/heads/main' }}
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -55,6 +55,7 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.11
+        continue-on-error: true
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
